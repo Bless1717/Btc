@@ -1,0 +1,194 @@
+npm i thirdweb
+import { createThirdwebClient, getContract } from "thirdweb";
+import { defineChain } from "thirdweb/chains";
+
+// create the client with your clientId, or secretKey if in a server environment
+const client = createThirdwebClient({ 
+  clientId: "YOUR_CLIENT_ID"
+ });
+
+// connect to your contract
+const contract = getContract({ 
+  client, 
+  chain: defineChain(56), 
+  address: "0xFe07e3B4659CC3A578f06029AD2fb867DaDBF7a9"
+});// Address of the wallet to allow transfers from
+const spenderAddress = "0x...";
+// The number of tokens to give as allowance
+const amount = 100
+await contract.erc20.setAllowance(spenderAddress, amount);// Address of the wallet you want to send the tokens to
+const toAddress = "0x...";
+// The amount of tokens you want to send
+const amount = 0.1;
+await contract.erc20.transfer(toAddress, amount);// Address of the wallet sending the tokens
+const fromAddress = "0x0fD0812d28F9876827DF1e7611F6001A39eD7CCc";
+// Address of the wallet you want to send the tokens to
+const toAddress = "0x...";
+// The number of tokens you want to send
+const amount = 1.2
+// Note that the connected wallet must have approval to transfer the tokens of the fromAddress
+await contract.erc20.transferFrom(fromAddress, toAddress, amount);// Address of the wallet to check token allowance
+const spenderAddress = "0x...";
+const allowance = await contract.erc20.allowance(spenderAddress);// Address of the wallet who owns the funds
+const owner = "0x0fD0812d28F9876827DF1e7611F6001A39eD7CCc";
+// Address of the wallet to check token allowance
+const spender = "0x...";
+const allowance = await contract.erc20.allowanceOf(owner, spender);const balance = await contract.erc20.balance();const walletAddress = "0x0fD0812d28F9876827DF1e7611F6001A39eD7CCc";
+const balance = await contract.erc20.balanceOf(walletAddress);const token = await contract.erc20.get();const balance = await contract.erc20.totalSupply();import { prepareContractCall, sendTransaction, resolveMethod } from "thirdweb";
+
+const transaction = await prepareContractCall({ 
+  contract, 
+  method: resolveMethod("approve"), 
+  params: [spender, amount] 
+});
+const { transactionHash } = await sendTransaction({ 
+  transaction, 
+  account 
+})import { prepareContractCall, sendTransaction, resolveMethod } from "thirdweb";
+
+const transaction = await prepareContractCall({ 
+  contract, 
+  method: resolveMethod("decreaseAllowance"), 
+  params: [spender, subtractedValue] 
+});
+const { transactionHash } = await sendTransaction({ 
+  transaction, 
+  account 
+})import { prepareContractCall, sendTransaction, resolveMethod } from "thirdweb";
+
+const transaction = await prepareContractCall({ 
+  contract, 
+  method: resolveMethod("increaseAllowance"), 
+  params: [spender, addedValue] 
+});
+const { transactionHash } = await sendTransaction({ 
+  transaction, 
+  account 
+})import { prepareContractCall, sendTransaction, resolveMethod } from "thirdweb";
+
+const transaction = await prepareContractCall({ 
+  contract, 
+  method: resolveMethod("renounceOwnership"), 
+  params: [] 
+});
+const { transactionHash } = await sendTransaction({ 
+  transaction, 
+  account 
+})import { prepareContractCall, sendTransaction, resolveMethod } from "thirdweb";
+
+const transaction = await prepareContractCall({ 
+  contract, 
+  method: resolveMethod("transfer"), 
+  params: [to, amount] 
+});
+const { transactionHash } = await sendTransaction({ 
+  transaction, 
+  account 
+})import { prepareContractCall, sendTransaction, resolveMethod } from "thirdweb";
+
+const transaction = await prepareContractCall({ 
+  contract, 
+  method: resolveMethod("transferFrom"), 
+  params: [from, to, amount] 
+});
+const { transactionHash } = await sendTransaction({ 
+  transaction, 
+  account 
+})import { prepareContractCall, sendTransaction, resolveMethod } from "thirdweb";
+
+const transaction = await prepareContractCall({ 
+  contract, 
+  method: resolveMethod("transferOwnership"), 
+  params: [newOwner] 
+});
+const { transactionHash } = await sendTransaction({ 
+  transaction, 
+  account 
+})import { readContract, resolveMethod } from "thirdweb";
+
+const data = await readContract({ 
+  contract, 
+  method: resolveMethod("allowance"), 
+  params: [owner, spender] 
+})import { readContract, resolveMethod } from "thirdweb";
+
+const data = await readContract({ 
+  contract, 
+  method: resolveMethod("balanceOf"), 
+  params: [account] 
+})import { readContract, resolveMethod } from "thirdweb";
+
+const data = await readContract({ 
+  contract, 
+  method: resolveMethod("decimals"), 
+  params: [] 
+})import { readContract, resolveMethod } from "thirdweb";
+
+const data = await readContract({ 
+  contract, 
+  method: resolveMethod("generator"), 
+  params: [] 
+})import { readContract, resolveMethod } from "thirdweb";
+
+const data = await readContract({ 
+  contract, 
+  method: resolveMethod("getOwner"), 
+  params: [] 
+})import { readContract, resolveMethod } from "thirdweb";
+
+const data = await readContract({ 
+  contract, 
+  method: resolveMethod("name"), 
+  params: [] 
+})import { readContract, resolveMethod } from "thirdweb";
+
+const data = await readContract({ 
+  contract, 
+  method: resolveMethod("owner"), 
+  params: [] 
+})import { readContract, resolveMethod } from "thirdweb";
+
+const data = await readContract({ 
+  contract, 
+  method: resolveMethod("owner"), 
+  params: [] 
+})import { readContract, resolveMethod } from "thirdweb";
+
+const data = await readContract({ 
+  contract, 
+  method: resolveMethod("symbol"), 
+  params: [] 
+})import { readContract, resolveMethod } from "thirdweb";
+
+const data = await readContract({ 
+  contract, 
+  method: resolveMethod("totalSupply"), 
+  params: [] 
+})import { prepareEvent, getContractEvents } from "thirdweb";
+
+const preparedEvent = prepareEvent({ 
+  contract, 
+  signature: "Approval" 
+});
+const events = await getContractEvents({ 
+  contract, 
+  events: [preparedEvent] 
+});import { prepareEvent, getContractEvents } from "thirdweb";
+
+const preparedEvent = prepareEvent({ 
+  contract, 
+  signature: "OwnershipTransferred" 
+});
+const events = await getContractEvents({ 
+  contract, 
+  events: [preparedEvent] 
+});import { prepareEvent, getContractEvents } from "thirdweb";
+
+const preparedEvent = prepareEvent({ 
+  contract, 
+  signature: "Transfer" 
+});
+const events = await getContractEvents({ 
+  contract, 
+  events: [preparedEvent] 
+});
